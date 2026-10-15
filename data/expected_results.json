@@ -1,0 +1,388 @@
+[
+  {
+    "scenario_id": "S01_RAPID_CHAIN",
+    "description": "Funds hop through three accounts within minutes, each passing on 95% of what it received.",
+    "should_alert": true,
+    "expected_rules": [
+      "rapid_onward_transfer"
+    ],
+    "accounts": [
+      "ACC0011",
+      "ACC0012",
+      "ACC0013",
+      "ACC0014"
+    ],
+    "txn_ids": [
+      "TXN001945",
+      "TXN001946",
+      "TXN001948"
+    ]
+  },
+  {
+    "scenario_id": "S02_SHOP_SUPPLIER",
+    "description": "Shop receives six customer payments through the day and pays its supplier 70% of the total hours later.",
+    "should_alert": false,
+    "expected_rules": [],
+    "accounts": [
+      "ACC0020",
+      "ACC0021",
+      "ACC0022",
+      "ACC0023",
+      "ACC0024",
+      "ACC0025",
+      "ACC0026",
+      "ACC0027"
+    ],
+    "txn_ids": [
+      "TXN002130",
+      "TXN002138",
+      "TXN002146",
+      "TXN002152",
+      "TXN002155",
+      "TXN002160",
+      "TXN002172"
+    ]
+  },
+  {
+    "scenario_id": "S03_MANY_SOURCES",
+    "description": "Thirty unrelated accounts each send about Rs 2,000 to one account within three hours.",
+    "should_alert": true,
+    "expected_rules": [
+      "multiple_incoming_sources"
+    ],
+    "accounts": [
+      "ACC0030",
+      "ACC0031",
+      "ACC0032",
+      "ACC0033",
+      "ACC0034",
+      "ACC0035",
+      "ACC0036",
+      "ACC0037",
+      "ACC0038",
+      "ACC0039",
+      "ACC0040",
+      "ACC0041",
+      "ACC0042",
+      "ACC0043",
+      "ACC0044",
+      "ACC0045",
+      "ACC0046",
+      "ACC0047",
+      "ACC0048",
+      "ACC0049",
+      "ACC0050",
+      "ACC0051",
+      "ACC0052",
+      "ACC0053",
+      "ACC0054",
+      "ACC0055",
+      "ACC0056",
+      "ACC0057",
+      "ACC0058",
+      "ACC0059",
+      "ACC0060"
+    ],
+    "txn_ids": [
+      "TXN002489",
+      "TXN002490",
+      "TXN002492",
+      "TXN002495",
+      "TXN002496",
+      "TXN002501",
+      "TXN002502",
+      "TXN002503",
+      "TXN002505",
+      "TXN002506",
+      "TXN002507",
+      "TXN002508",
+      "TXN002512",
+      "TXN002514",
+      "TXN002515",
+      "TXN002518",
+      "TXN002523",
+      "TXN002525",
+      "TXN002527",
+      "TXN002528",
+      "TXN002531",
+      "TXN002532",
+      "TXN002533",
+      "TXN002535",
+      "TXN002536",
+      "TXN002537",
+      "TXN002538",
+      "TXN002539",
+      "TXN002541",
+      "TXN002543"
+    ]
+  },
+  {
+    "scenario_id": "S04_CHARITY_COLLECTION",
+    "description": "Thirty donors send varied amounts to a fundraiser's account spread over five days.",
+    "should_alert": false,
+    "expected_rules": [],
+    "accounts": [
+      "ACC0070",
+      "ACC0071",
+      "ACC0072",
+      "ACC0073",
+      "ACC0074",
+      "ACC0075",
+      "ACC0076",
+      "ACC0077",
+      "ACC0078",
+      "ACC0079",
+      "ACC0080",
+      "ACC0081",
+      "ACC0082",
+      "ACC0083",
+      "ACC0084",
+      "ACC0085",
+      "ACC0086",
+      "ACC0087",
+      "ACC0088",
+      "ACC0089",
+      "ACC0090",
+      "ACC0091",
+      "ACC0092",
+      "ACC0093",
+      "ACC0094",
+      "ACC0095",
+      "ACC0096",
+      "ACC0097",
+      "ACC0098",
+      "ACC0099",
+      "ACC0100"
+    ],
+    "txn_ids": [
+      "TXN002265",
+      "TXN002282",
+      "TXN002289",
+      "TXN002291",
+      "TXN002325",
+      "TXN002329",
+      "TXN002364",
+      "TXN002374",
+      "TXN002410",
+      "TXN002414",
+      "TXN002423",
+      "TXN002425",
+      "TXN002431",
+      "TXN002452",
+      "TXN002455",
+      "TXN002467",
+      "TXN002468",
+      "TXN002474",
+      "TXN002477",
+      "TXN002542",
+      "TXN002544",
+      "TXN002599",
+      "TXN002600",
+      "TXN002612",
+      "TXN002620",
+      "TXN002624",
+      "TXN002643",
+      "TXN002691",
+      "TXN002700",
+      "TXN002721"
+    ]
+  },
+  {
+    "scenario_id": "S05_CYCLE",
+    "description": "Three accounts pass about Rs 25,000 around a loop within an hour, each hop 1% smaller.",
+    "should_alert": true,
+    "expected_rules": [
+      "transaction_cycle"
+    ],
+    "accounts": [
+      "ACC0101",
+      "ACC0102",
+      "ACC0103"
+    ],
+    "txn_ids": [
+      "TXN002702",
+      "TXN002703",
+      "TXN002705"
+    ]
+  },
+  {
+    "scenario_id": "S06_ROOMMATE_SETTLEUP",
+    "description": "Three roommates settle shared costs in a loop over four days with different amounts.",
+    "should_alert": false,
+    "expected_rules": [],
+    "accounts": [
+      "ACC0111",
+      "ACC0112",
+      "ACC0113"
+    ],
+    "txn_ids": [
+      "TXN001076",
+      "TXN001305",
+      "TXN001511"
+    ]
+  },
+  {
+    "scenario_id": "S07_CONVERGENCE",
+    "description": "Five victims pay five different accounts, which each forward about 94% to one collector within minutes. All five complain.",
+    "should_alert": true,
+    "expected_rules": [
+      "complaint_convergence"
+    ],
+    "accounts": [
+      "ACC0121",
+      "ACC0122",
+      "ACC0123",
+      "ACC0124",
+      "ACC0125",
+      "ACC0131",
+      "ACC0132",
+      "ACC0133",
+      "ACC0134",
+      "ACC0135",
+      "ACC0140"
+    ],
+    "txn_ids": [
+      "TXN002804",
+      "TXN002806",
+      "TXN002811",
+      "TXN002813",
+      "TXN002821",
+      "TXN002825",
+      "TXN002841",
+      "TXN002842",
+      "TXN002858",
+      "TXN002861"
+    ],
+    "complaint_ids": [
+      "CMP0004",
+      "CMP0006",
+      "CMP0007",
+      "CMP0009",
+      "CMP0010"
+    ]
+  },
+  {
+    "scenario_id": "S08_UNRELATED_COMPLAINTS",
+    "description": "Five unrelated victims complain about payments to five different recipients over five days, with no shared destination.",
+    "should_alert": false,
+    "expected_rules": [],
+    "accounts": [
+      "ACC0151",
+      "ACC0152",
+      "ACC0153",
+      "ACC0154",
+      "ACC0155",
+      "ACC0161",
+      "ACC0162",
+      "ACC0163",
+      "ACC0164",
+      "ACC0165"
+    ],
+    "txn_ids": [
+      "TXN002420",
+      "TXN002648",
+      "TXN002759",
+      "TXN002768",
+      "TXN002868"
+    ],
+    "complaint_ids": [
+      "CMP0001",
+      "CMP0002",
+      "CMP0003",
+      "CMP0005",
+      "CMP0008"
+    ]
+  },
+  {
+    "scenario_id": "S09_SHARED_DEVICE_COORDINATED",
+    "description": "Eight accounts on one device each pay the same account about Rs 4,000 to 4,500 within 45 minutes at night.",
+    "should_alert": true,
+    "expected_rules": [
+      "shared_device"
+    ],
+    "accounts": [
+      "ACC0171",
+      "ACC0172",
+      "ACC0173",
+      "ACC0174",
+      "ACC0175",
+      "ACC0176",
+      "ACC0177",
+      "ACC0178",
+      "ACC0170"
+    ],
+    "devices": [
+      "DEV9001"
+    ],
+    "note": "Shared device plus coordinated timing and one common receiver.",
+    "txn_ids": [
+      "TXN002895",
+      "TXN002896",
+      "TXN002898",
+      "TXN002899",
+      "TXN002900",
+      "TXN002901",
+      "TXN002902",
+      "TXN002903"
+    ]
+  },
+  {
+    "scenario_id": "S10_FAMILY_PHONE",
+    "description": "Five household accounts share one phone and pay various shops over three weeks.",
+    "should_alert": false,
+    "expected_rules": [],
+    "accounts": [
+      "ACC0181",
+      "ACC0182",
+      "ACC0183",
+      "ACC0184",
+      "ACC0185",
+      "ACC0191",
+      "ACC0192",
+      "ACC0193",
+      "ACC0194",
+      "ACC0195",
+      "ACC0196",
+      "ACC0197",
+      "ACC0198",
+      "ACC0199",
+      "ACC0200"
+    ],
+    "devices": [
+      "DEV9002"
+    ],
+    "note": "The device link may be shown as context, but must not raise an alert.",
+    "txn_ids": [
+      "TXN000620",
+      "TXN000676",
+      "TXN000827",
+      "TXN000829",
+      "TXN001219",
+      "TXN001238",
+      "TXN001326",
+      "TXN001367",
+      "TXN001607",
+      "TXN001647",
+      "TXN001676",
+      "TXN001716",
+      "TXN001748",
+      "TXN001780",
+      "TXN001803",
+      "TXN001822",
+      "TXN001828",
+      "TXN001895",
+      "TXN002116",
+      "TXN002151",
+      "TXN002214",
+      "TXN002221",
+      "TXN002241",
+      "TXN002260",
+      "TXN002378",
+      "TXN002380",
+      "TXN002387",
+      "TXN002500",
+      "TXN002611",
+      "TXN002749"
+    ]
+  }
+]
