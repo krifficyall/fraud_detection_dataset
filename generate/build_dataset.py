@@ -26,6 +26,13 @@ COLLECTOR = "ACC0140"
 VICTIMS_B = [f"ACC{i:04d}" for i in range(151, 156)]
 RECIPIENTS = [f"ACC{i:04d}" for i in range(161, 166)]
 
+FAN_SOURCE = "ACC0142"
+SPLITTER = "ACC0141"
+FAN_TARGETS = [f"ACC{i:04d}" for i in range(143, 151)]
+
+EMPLOYER = "ACC0061"
+EMPLOYEES = [f"ACC{i:04d}" for i in range(62, 70)]
+
 COMPLAINT_SCENARIOS = {
     "S07_CONVERGENCE": VICTIMS_A,
     "S08_UNRELATED_COMPLAINTS": VICTIMS_B,
@@ -202,7 +209,31 @@ def build_complaints(all_txns, acc_to_vpa):
           .sort_values("complaint_date", kind="stable")
           .reset_index(drop=True))
     df.insert(0, "complaint_id", [f"CMP{i:04d}" for i in range(1, len(df) + 1)])
-    return df                                     
+    return df     
+def scenario_fan_out(acc_to_vpa, acc_to_dev):
+    t = pd.Timestamp("2026-09-30 15:00:00")
+    total = 60000.00
+    rows = [make_txn(t, FAN_SOURCE, SPLITTER, total, "S11_FAN_OUT",
+                     acc_to_vpa, acc_to_dev)]
+    share = round(total * 0.95 / len(FAN_TARGETS), 2)
+    for target in FAN_TARGETS:
+        ts = t + pd.Timedelta(minutes=int(rng.integers(2, 31)),
+                              seconds=int(rng.integers(0, 60)))
+        amt = round(share * float(rng.uniform(0.95, 1.05)), 2)
+        rows.append(make_txn(ts, SPLITTER, target, amt, "S11_FAN_OUT",
+                             acc_to_vpa, acc_to_dev))
+    return rows
+
+
+def scenario_payroll(acc_to_vpa, acc_to_dev):
+    pay_day = pd.Timestamp("2026-09-05 10:00:00")
+    rows = []
+    for employee in EMPLOYEES:
+        ts = pay_day + pd.Timedelta(minutes=int(rng.integers(0, 20)))
+        amt = float(np.round(rng.uniform(18000, 45000), 2))
+        rows.append(make_txn(ts, EMPLOYER, employee, amt, "S12_PAYROLL",
+                             acc_to_vpa, acc_to_dev))
+    return rows                                    
 SCENARIOS = {
     "S01_RAPID_CHAIN": {
         "description": "Funds hop through three accounts within minutes, each passing on 95% of what it received.",
@@ -268,6 +299,18 @@ SCENARIOS = {
         "devices": [DEVICE_B],
         "note": "The device link may be shown as context, but must not raise an alert.",
     },
+        "S11_FAN_OUT": {
+        "description": "Rs 60,000 arrives and about 95% is split across eight accounts within 30 minutes.",
+        "should_alert": True,
+        "expected_rules": ["FAN_OUT_SPLITTING"],
+        "accounts": [FAN_SOURCE, SPLITTER] + FAN_TARGETS,
+    },
+    "S12_PAYROLL": {
+        "description": "An employer pays eight employees different salaries on payday, with no recent inbound payment.",
+        "should_alert": False,
+        "expected_rules": [],
+        "accounts": [EMPLOYER] + EMPLOYEES,
+    },
     
 }
 if __name__ == "__main__":
@@ -301,6 +344,8 @@ if __name__ == "__main__":
         + scenario_unrelated(acc_to_vpa, acc_to_dev)
         + scenario_shared_device(acc_to_vpa, acc_to_dev)
         + scenario_family_phone(acc_to_vpa, acc_to_dev)
+        + scenario_fan_out(acc_to_vpa, acc_to_dev)
+        + scenario_payroll(acc_to_vpa, acc_to_dev)
 
     )
 
